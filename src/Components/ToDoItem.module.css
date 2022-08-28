@@ -1,4 +1,9 @@
-.to-do-form__item{
+.to-do-item{
+    display: flex;
+    align-items: center;
+}
+
+.to-do-item__item{
     width: 100%;
     height: 3.5rem;
     border: 0;
@@ -10,4 +15,19 @@
     list-style: none;
     text-align:left;
     vertical-align: bottom;
+}
+
+.to-do-item__button {
+    height: 3.5rem;
+    width: 4rem;
+    border: none;
+    box-shadow: 2px 2px rgba(207, 207, 207, 50);
+    background-color: #f7f5ef;
+    color:rgb(90, 90, 90);
+    font-size: 1.2rem;
+}
+
+.to-do-item__button:hover,
+.to-do-item__button:active{
+    background-color: rgb(236, 141, 141);
 }

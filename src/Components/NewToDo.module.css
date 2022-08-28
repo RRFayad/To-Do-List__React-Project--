@@ -15,7 +15,8 @@
 .to-do-form__form {
     margin: auto;
     text-align: center;
-    width: 50vw;
+    width: 90vw;
+    max-width: 760px;
 }
 
 .to-do-form__form label{

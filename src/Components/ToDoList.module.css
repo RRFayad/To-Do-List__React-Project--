@@ -1,6 +1,7 @@
 .to-do-form__list {
     margin: 20px auto;
     text-align: center;
-    width: 50vw;
+    width: 90vw;
+    max-width: 760px;
     padding: 0;
 }

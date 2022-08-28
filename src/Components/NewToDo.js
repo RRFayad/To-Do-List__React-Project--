@@ -10,7 +10,7 @@ function NewToDo() {
         <section className={`${classes['to-do-form']}`}>
         <div className={`${classes['to-do-form__title']}`}>
         <h1>To Do List</h1>
-        <p>(List only your main goals for the day!)</p>
+        <p> <em>List only your main goals for the day!</em></p>
         </div>
         <form onSubmit={submitHandler} className={`${classes['to-do-form__form']}`}>
             <label htmlFor="todo">To Do Item</label>
