@@ -3,6 +3,10 @@
     margin: 1.5rem;
 }
 
+.to-do-form__title h1{
+    font-size: 2rem;
+}
+
 
 .to-do-form__title  > *{
     margin: 0;
@@ -13,7 +17,6 @@
     text-align: center;
     width: 50vw;
 }
-
 
 .to-do-form__form label{
     display: block;
