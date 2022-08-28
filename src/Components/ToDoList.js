@@ -1,4 +1,7 @@
+import { useContext } from "react";
+
 import ToDoItem from "./ToDoItem";
+import {ToDoListContext} from "../Store/to-do-list-context"
 
 import classes from "./ToDoList.module.css";
 
@@ -9,9 +12,11 @@ function ToDoList() {
     { task: "Create Music Player?", done: false, id:3 },
   ];
 
+  const toDoCtx = useContext(ToDoListContext)
+
   return (
     <ul className={`${classes["to-do-form__list"]}`}>
-      {DUMMY_TODOS.map((item) => {
+      {toDoCtx.toDos.map((item) => {
         return <ToDoItem task={item.task} key={item.id}/>;
       })}
     </ul>
