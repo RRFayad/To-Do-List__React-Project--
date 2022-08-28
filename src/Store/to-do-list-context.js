@@ -7,9 +7,17 @@ export const ToDoListContext = React.createContext({
     removeTodo:() => {},
 });
 
+const DUMMY_TODOS = [
+    {task:'Create To Do List', done:false, id:1},
+    {task:'Create Pomodoro Timer', done:false, id:2},
+    {task:'Create Dummy Back End', done:false, id:3},
+    {task:'Deploy', done:false, id:4},
+    {task:'Refactor', done:false, id:5},
+]
+
 const ToDoListContextProvider = (props) => {
 
-    const [toDos, setToDos] = useState([])
+    const [toDos, setToDos] = useState(DUMMY_TODOS)
 
     const addTodo = (item) => {
         const toDo = {
@@ -17,14 +25,31 @@ const ToDoListContextProvider = (props) => {
             done:false,
             id:new Date().toISOString()
         }
-        setToDos((previous) => [...previous,toDo])
+        setToDos((previousToDos) => [...previousToDos,toDo])
+    };
+
+    const removeTodo = (id) => {
+        const itemIndex = toDos.findIndex((item) => item.id === id);
+        const newTodos = [...toDos];
+        newTodos.splice(itemIndex,1);
+        setToDos(newTodos)
+    };
+
+    const toggleStatus = (id) => {
+        const itemIndex = toDos.findIndex((item) => item.id === id);
+        const newItem = toDos.find((item) => item.id === id);
+        newItem.done=!newItem.done //toggled status of the copy of the item
+        const newTodos = [...toDos];
+        newTodos.splice(itemIndex,1,newItem);
+        setToDos(newTodos)
     }
+
 
     const contextValue = {
         toDos,
         addTodo,
-        toggleStatus:() => alert('Toggle Status Function'),
-        removeTodo:() => alert('Remove To Do Function'),
+        removeTodo,
+        toggleStatus,
     }
 
     return (

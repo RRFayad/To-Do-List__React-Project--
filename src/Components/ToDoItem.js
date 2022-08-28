@@ -13,10 +13,18 @@ function ToDoItem(props) {
 
     const trashIcon = <FontAwesomeIcon icon={faTrash}/>
 
+    const deleteHandler = () => {
+        toDoCtx.removeTodo(props.id)
+    }
+
+    const toggleStatusHandler = () => {
+        toDoCtx.toggleStatus(props.id)
+    }
+
     return (
         <div className={`${classes['to-do-item']}`}>
-        <li className={`${classes['to-do-item__item']}`} onClick={toDoCtx.toggleStatus}>{props.task}</li>
-        <button className={`${classes['to-do-item__button']}`} onClick={toDoCtx.removeTodo}>{trashIcon}</button>
+        <li className={`${classes['to-do-item__item']}`} onClick={toggleStatusHandler}>{props.task}</li>
+        <button className={`${classes['to-do-item__button']}`} onClick={deleteHandler}>{trashIcon}</button>
         </div>
     )
 }
