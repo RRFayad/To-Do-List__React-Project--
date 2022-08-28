@@ -1,8 +1,10 @@
 .to-do-title{
     text-align: center;
+    margin: 1.5rem;
 }
 
-.to-do-title p {
+
+.to-do-title  > *{
     margin: 0;
 }
 
@@ -11,11 +13,9 @@
     text-align: center;
     width: 50vw;
     font-size: 1.5rem;
-
 }
-.new-to-do {
 
-}
+
 .new-to-do label{
     display: block;
     font-weight: bold;
