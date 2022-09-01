@@ -12,7 +12,7 @@ function ToDoList() {
   return (
     <ul className={`${classes["to-do-form__list"]}`}>
       {toDoCtx.toDos.map((item) => {
-        return <ToDoItem task={item.task} key={item.id} id={item.id}/>;
+        return <ToDoItem value={item} key={item.id} />;
       })}
     </ul>
   );

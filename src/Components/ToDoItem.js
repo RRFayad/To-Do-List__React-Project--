@@ -14,16 +14,19 @@ function ToDoItem(props) {
     const trashIcon = <FontAwesomeIcon icon={faTrash}/>
 
     const deleteHandler = () => {
-        toDoCtx.removeTodo(props.id)
+        toDoCtx.removeTodo(props.value.id)
     }
 
+    let statusClass = props.value.done? 'to-do-item__item--done' : 'to-do-item__item'   // I created this to toggle the status of the task (done / undone) and change the style
+
     const toggleStatusHandler = () => {
-        toDoCtx.toggleStatus(props.id)
+        toDoCtx.toggleStatus(props.value.id)
     }
+
 
     return (
         <div className={`${classes['to-do-item']}`}>
-        <li className={`${classes['to-do-item__item']}`} onClick={toggleStatusHandler}>{props.task}</li>
+        <li className={`${classes[statusClass]}`} onClick={toggleStatusHandler}>{props.value.task}</li>
         <button className={`${classes['to-do-item__button']}`} onClick={deleteHandler}>{trashIcon}</button>
         </div>
     )
