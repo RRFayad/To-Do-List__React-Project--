@@ -19,36 +19,34 @@ const DUMMY_TODOS = [
 const ToDoListContextProvider = (props) => {
   const [toDos, setToDos] = useState([]);
 
-//   useEffect (() => {
-//     async () => {
-//       try{
-//         const response = await fetch("https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json");
-//         if (!response.ok) {
-//           throw new Error ('Something went wrong')
-//         }
-//         const data = await response.json();
-//         console.log(data);
-//         return
-//       } catch (error) {
-//         throw error
-//       }
-//   }
-// }, [])
+  const fetchToDos = async () => {
+    try {
+      const response = await fetch(
+        "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json"
+      );
+      if (!response.ok) {
+        throw new Error("Error fetching data");
+      }
 
-useEffect(() => {
-  const data = fetch('https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json')
-    .then((res) => {
-      return res.json()
-    })
-    .then((data) => data);
-      data.then((item) => {
+      const data = await response.json();
+
       const toDosList = [];
-       for (const value of Object.values(item)) {
-        toDosList.push(value)
-       };
-       setToDos(toDosList)
-      })
-},[])
+      for (const value of Object.values(data)) {
+        toDosList.push(value);
+      }
+      setToDos(toDosList);
+    } catch (error) {
+      console.log(
+        error.message === "Cannot convert undefined or null to object"
+          ? "No data"
+          : error.message
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchToDos();
+  }, []);
 
   const addTodo = (item) => {
     const toDo = {
@@ -71,7 +69,24 @@ useEffect(() => {
     const newTodos = [...toDos];
     newTodos.splice(itemIndex, 1);
     setToDos(newTodos);
-    // Create code to find item in Firebase via ID, and delete it
+    // Improve Code here, I'm deleting all data and running a loop to post each ToDo again
+    fetch(
+      "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
+      {
+        method: "DELETE",
+      }
+    ).then(() => {
+      if (newTodos.length === 0) return;
+      for (const item of newTodos) {
+        fetch(
+          "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
+          {
+            method: "POST",
+            body: JSON.stringify(item),
+          }
+        );
+      }
+    });
   };
 
   const toggleStatus = (id) => {
@@ -81,7 +96,23 @@ useEffect(() => {
     const newTodos = [...toDos];
     newTodos.splice(itemIndex, 1, newItem);
     setToDos(newTodos);
-    // Create code to find item in Firebase via ID, and toggle status
+    // Improve Code here, I'm deleting all data and running a loop to post each ToDo again (with updated status)
+    fetch(
+      "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
+      {
+        method: "DELETE",
+      }
+    ).then(() => {
+      for (const item of newTodos) {
+        fetch(
+          "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
+          {
+            method: "POST",
+            body: JSON.stringify(item),
+          }
+        );
+      }
+    });
   };
 
   const contextValue = {
