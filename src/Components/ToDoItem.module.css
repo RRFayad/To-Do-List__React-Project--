@@ -14,7 +14,7 @@
     font-size: 1rem;
     list-style: none;
     text-align:left;
-    vertical-align: bottom;
+    align-items: center;
 }
 
 .to-do-item__item--done{
@@ -28,7 +28,6 @@
     font-size: 1rem;
     list-style: none;
     text-align:left;
-    vertical-align: bottom;
     text-decoration: line-through;
 }
 

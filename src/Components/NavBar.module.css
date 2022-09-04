@@ -26,6 +26,11 @@
     cursor: pointer;
 }
 
+.login-button:hover,
+.login-button:active {
+    color: #F6EB0A;
+}
+
 @media (max-width:768px) {
     .header{
         height: 3rem;
