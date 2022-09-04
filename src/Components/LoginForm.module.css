@@ -52,14 +52,26 @@
     cursor: pointer;
 }
 
+.login-form__login-button:hover,
+.login-form__login-button:active{
+    background-color: #9e7701b3;
+}
+
 .login-form__toggle-button {
     margin-top: 8px;
+    width: fit-content;
     background-color: transparent;
     border: none;
     color: #9E7701;
     font-family: inherit;
     font-size: 1rem;
     cursor: pointer;
+    align-self: center;
+}
+
+.login-form__toggle-button:hover,
+.login-form__toggle-button:active{
+    color: #9e7701b3;
 }
 
 @media (max-width:768px) {
