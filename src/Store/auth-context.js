@@ -13,10 +13,12 @@ export const AuthContextProvider = (props) => {
 
     const loginHandler = () => {
         setIsLoggedIn(true);
+        alert('User is logged in')
     }
 
     const logoutHandler = () => {
         setIsLoggedIn(false)
+        alert('User has logged out')
     }
 
     const contextValue = {

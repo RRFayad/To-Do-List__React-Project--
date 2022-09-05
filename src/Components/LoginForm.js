@@ -3,6 +3,15 @@ import AuthContext from "../Store/auth-context";
 
 import classes from "./LoginForm.module.css";
 
+/*
+NEXT STEPS:
+    - Review and organize the code in this component;
+    - Add Routes and Pages (for logged in and logged out);
+    - Develop the dummy backend authentication (Firebase);
+    - Refactor and useMemo;
+    - Deploy App;
+*/
+
 function LoginForm() {
   const [userHasAccount, setUserHasAccount] = useState(true);
   const [emailIsValid, setEmailIsValid] = useState(false);
@@ -15,19 +24,31 @@ function LoginForm() {
   const inputEmail = useRef();
   const inputPassword = useRef();
 
-  const checkEmailIsValid = (email) => {
-    return email.indexOf("@") > 0 && email.indexOf("@") <= email.length - 2;
+  // Created these helpers to control valid / invalid form, and return user feedback
+  let emailControlClass = !emailIsValid && emailIsTouched ? "invalid" : null;
+  let passwordControlClass =
+    !passwordIsValid && passwordIsTouched ? "invalid" : null;
+
+  const checkEmailIsValid = () => {
+    const email = inputEmail.current.value.trim();
+    setEmailIsValid(
+      email.indexOf("@") > 0 && email.indexOf("@") <= email.length - 2
+    );
   };
 
-  const checkPasswordIsValid = (password) => {
-    return password.length > 5;
+  const checkPasswordIsValid = () => {
+    const password = inputPassword.current.value;
+    setPasswordIsValid(password.length > 5);
   };
 
   const submitHandler = (event) => {
+    // Update this function after I made my validations before
     event.preventDefault();
-    setEmailIsValid(checkEmailIsValid(inputEmail.current.value));
-    setPasswordIsValid(checkPasswordIsValid(inputPassword.current.value));
-    alert(`Email:${emailIsValid} | PW:${passwordIsValid}`);
+    if (emailIsValid && passwordIsValid) {
+      authCtx.login();
+    } else {
+      alert("Login failed - Check your e-mail and password");
+    }
   };
 
   function toggleAccountAction(event) {
@@ -42,12 +63,31 @@ function LoginForm() {
       </h1>
       <form className={`${classes["login-form__form"]}`}>
         <label htmlFor="e-mail">E-mail:</label>
-        <input type="email" id="email" ref={inputEmail} />
+        <input
+          type="email"
+          id="email"
+          ref={inputEmail}
+          onFocus={() => setEmailIsTouched(false)}
+          onBlur={()=> setEmailIsTouched(true)}
+          onChange={checkEmailIsValid}
+          className={`${classes[emailControlClass]}`}
+        />
+        {emailControlClass === "invalid" && <p>Please enter a valid email</p>}
         <label htmlFor="password">Password:</label>
-        <input type="password" id="password" ref={inputPassword} />
+        <input
+          type="password"
+          id="password"
+          ref={inputPassword}
+          onFocus={() => setpasswordIsTouched(false)}
+          onBlur={()=> setpasswordIsTouched(true)}
+          onChange={checkPasswordIsValid}
+          className={`${classes[passwordControlClass]}`}
+        />
+        {passwordControlClass === "invalid" && <p>Your password must have at least 6 digits</p>}
         <button
           className={`${classes["login-form__login-button"]}`}
           onClick={submitHandler}
+          disabled={!emailIsValid || !passwordIsValid}
         >
           {userHasAccount ? "Login" : "Create Account"}
         </button>
