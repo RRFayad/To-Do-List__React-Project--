@@ -1,9 +1,15 @@
 import classes from "./LoginForm.module.css";
 
 function LoginForm() {
-  const submitHandler = () => {
-    alert("Delevop submit handler"); //sdf
+  const submitHandler = (event) => {
+    event.preventDefault();
+    alert("Delevop submit handler");
   };
+
+  function toggleAccountAction(event) {
+    event.preventDefault();
+    alert("Delevop toggle account action");
+  }
 
   return (
     <section className={`${classes["login-form__section"]}`}>
@@ -14,7 +20,7 @@ function LoginForm() {
           <label htmlFor="password">Password:</label>
           <input type="password" />
         <button className={`${classes["login-form__login-button"]}`}>Login*</button>
-        <button className={`${classes["login-form__toggle-button"]}`}>Create new account</button>
+        <button className={`${classes["login-form__toggle-button"]}`} onClick={toggleAccountAction}>Create new account</button>
       </form>
     </section>
   );

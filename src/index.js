@@ -7,14 +7,17 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
 import ToDoListContextProvider from "./Store/to-do-list-context";
+import { AuthContextProvider } from "./Store/auth-context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <ToDoListContextProvider>
-        <App />
-      </ToDoListContextProvider>
+      <AuthContextProvider>
+        <ToDoListContextProvider>
+          <App />
+        </ToDoListContextProvider>
+      </AuthContextProvider>
     </BrowserRouter>
   </React.StrictMode>
 );
