@@ -26,8 +26,7 @@ function LoginForm() {
 
   // Created these helpers to control valid / invalid form, and return user feedback
   let emailControlClass = !emailIsValid && emailIsTouched ? "invalid" : null;
-  let passwordControlClass =
-    !passwordIsValid && passwordIsTouched ? "invalid" : null;
+  let passwordControlClass = !passwordIsValid && passwordIsTouched ? "invalid" : null;
 
   const checkEmailIsValid = () => {
     const email = inputEmail.current.value.trim();
@@ -38,7 +37,7 @@ function LoginForm() {
 
   const checkPasswordIsValid = () => {
     const password = inputPassword.current.value;
-    setPasswordIsValid(password.length > 5);
+    setPasswordIsValid(password.length >= 6);
   };
 
   const submitHandler = (event) => {
