@@ -6,10 +6,8 @@ import LoginForm from "../Components/LoginForm"
 function HomePage() {
   return (
     <section className="to-do-app">
-      <NavBar />
-      <LoginForm/>
-      {/* <NewToDo />
-      <ToDoList /> */}
+      <NewToDo />
+      <ToDoList />
     </section>
   );
 }

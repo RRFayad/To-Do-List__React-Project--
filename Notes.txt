@@ -1,0 +1,17 @@
+ About the branches:
+    - main: have the App
+    - login_feature: the form and auth context
+    - routes feature: I'll try to develop only the routes
+ 
+ 0. Install
+
+    1. In the index.js file:
+        - import { BrowserRouter } from 'react-router-dom';
+        - Wrap the App with the BrowserRouter component ( I prefer in the index file, but it could be also in the App or wherever I should wrap to wrap the routes)
+    
+    2. In the App file (or wherever I wanna use the Route)
+        - <code> import { Route, Routes } from "react-router-dom"; </code>;
+        -  Wrap the component with the route and path, e.g.:
+            <Routes>
+                <Route path='/' element={<HomePage/>} />
+            </Routes>

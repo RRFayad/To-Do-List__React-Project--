@@ -1,11 +1,20 @@
+import { Link } from "react-router-dom";
+
 import classes from "./NavBar.module.css";
 
 function NavBar() {
   return (
     <header className={classes.header}>
-      <h1 className={classes.title}>To Do List App</h1>
-      <nav >
-        <button className={`${classes['login-button']}`}>Login</button>
+      <Link to="/">
+        <button className={`${classes["nav-button--title"]}`}>To Do List App</button>
+      </Link>
+      <nav>
+        <Link to="/profile">
+          <button className={`${classes["nav-button"]}`}>My Profile</button>
+        </Link>
+        <Link to="/login">
+          <button className={`${classes["nav-button"]}`}>Login</button>
+        </Link>
       </nav>
     </header>
   );

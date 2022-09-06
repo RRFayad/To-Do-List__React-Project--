@@ -16,9 +16,10 @@
     padding: 0 8%;
 }
 
-.login-button {
+.nav-button--title {
     background-color: transparent;
     border: none;
+    margin: 0 8px;
     color: white;
     font-family: inherit;
     font-size: 1.5rem;
@@ -26,8 +27,21 @@
     cursor: pointer;
 }
 
-.login-button:hover,
-.login-button:active {
+.nav-button {
+    background-color: transparent;
+    border: none;
+    margin: 0 8px;
+    color: white;
+    font-family: inherit;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.nav-button:hover,
+.nav-button:active, 
+.nav-button--title:hover, 
+.nav-button--title:active {
     color: #F6EB0A;
 }
 
@@ -35,11 +49,11 @@
     .header{
         height: 3rem;
     }
-    .title {
+    .nav-button--title {
         font-size: 1rem;
     }
 
-    .login-button{
+    .nav-button{
         font-size: 1rem;
     }
 }
