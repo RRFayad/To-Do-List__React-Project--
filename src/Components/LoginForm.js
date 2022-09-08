@@ -1,17 +1,7 @@
 import { useContext, useRef, useState } from "react";
-import {Routes, Route, Navigate} from "react-router-dom";
 import AuthContext from "../Store/auth-context";
 
 import classes from "./LoginForm.module.css";
-
-/*
-NEXT STEPS:
-    - Review and organize the code in this component;
-    - Add Routes and Pages (for logged in and logged out);
-    - Develop the dummy backend authentication (Firebase);
-    - Refactor and useMemo;
-    - Deploy App;
-*/
 
 function LoginForm() {
   const [userHasAccount, setUserHasAccount] = useState(true);
@@ -42,10 +32,11 @@ function LoginForm() {
   };
 
   const submitHandler = (event) => {
-    // Update this function after I made my validations before
     event.preventDefault();
+    const email = inputEmail.current.value.trim();
+    const password = inputPassword.current.value;
     if (emailIsValid && passwordIsValid) {
-      authCtx.login();
+      authCtx.login(userHasAccount,email,password);
     } else {
       alert("Login failed - Check your e-mail and password");
     }

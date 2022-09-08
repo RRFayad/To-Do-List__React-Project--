@@ -1,4 +1,3 @@
-import NavBar from "../Components/NavBar";
 import LoginForm from "../Components/LoginForm"
 
 function LoginPage() {

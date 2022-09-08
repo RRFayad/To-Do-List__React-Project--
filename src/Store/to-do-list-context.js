@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
+
+import AuthContext from "./auth-context";
 
 export const ToDoListContext = React.createContext({
   toDos: [],
@@ -7,24 +9,20 @@ export const ToDoListContext = React.createContext({
   removeTodo: () => {},
 });
 
-const DUMMY_TODOS = [
-  { task: "Fetch data", done: false, id: 1 },
-  { task: "Link the back end to the update functions", done: false, id: 2 },
-  { task: "Create Nav Bar", done: false, id: 3 },
-  { task: "Create login method", done: false, id: 4 },
-  { task: "Deploy", done: false, id: 5 },
-  { task: "Refactor", done: false, id: 6 },
-];
-
 const ToDoListContextProvider = (props) => {
   const [toDos, setToDos] = useState([]);
 
-  const fetchToDos = async () => {
+  const authCtx = useContext(AuthContext);
+  const userId = authCtx.userId;
+  const userIsLoggedIn = authCtx.isLoggedIn;
+  const fetchURL = userId? `https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/${userId}/todos.json` : null
+
+  const fetchToDos = useCallback(async () => {
+    if (!userIsLoggedIn) return;
     try {
-      const response = await fetch(
-        "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json"
-      );
+      const response = await fetch(fetchURL);
       if (!response.ok) {
+        setToDos([]);
         throw new Error("Error fetching data");
       }
 
@@ -36,17 +34,19 @@ const ToDoListContextProvider = (props) => {
       }
       setToDos(toDosList);
     } catch (error) {
+      setToDos([]);
       console.log(
         error.message === "Cannot convert undefined or null to object"
           ? "No data"
           : error.message
       );
     }
-  };
+  },[userIsLoggedIn,fetchURL]
+  );
 
   useEffect(() => {
     fetchToDos();
-  }, []);
+  }, [fetchToDos]);
 
   const addTodo = (item) => {
     const toDo = {
@@ -54,8 +54,7 @@ const ToDoListContextProvider = (props) => {
       done: false,
       id: new Date().toISOString(),
     };
-    fetch(
-      "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
+    fetch(fetchURL,
       {
         method: "POST",
         body: JSON.stringify(toDo),
@@ -64,32 +63,25 @@ const ToDoListContextProvider = (props) => {
     setToDos((previousToDos) => [...previousToDos, toDo]);
   };
 
-  const removeTodo = (id) => {
+  const removeTodo = async (id) => {
     const itemIndex = toDos.findIndex((item) => item.id === id);
     const newTodos = [...toDos];
     newTodos.splice(itemIndex, 1);
     setToDos(newTodos);
     // Improve Code here, I'm deleting all data and running a loop to post each ToDo again
-    fetch(
-      "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
-      {
-        method: "DELETE",
-      }
-    ).then(() => {
-      if (newTodos.length === 0) return;
-      for (const item of newTodos) {
-        fetch(
-          "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
+    await fetch(fetchURL,{method: "DELETE"});
+    if (newTodos.length === 0) return;
+    for (const todo of newTodos) {
+      await fetch( fetchURL,
           {
             method: "POST",
-            body: JSON.stringify(item),
+            body: JSON.stringify(todo),
           }
         );
       }
-    });
-  };
+    };
 
-  const toggleStatus = (id) => {
+  const toggleStatus = async (id) => {
     const itemIndex = toDos.findIndex((item) => item.id === id);
     const newItem = toDos.find((item) => item.id === id);
     newItem.done = !newItem.done; //toggled status of the copy of the item
@@ -97,23 +89,16 @@ const ToDoListContextProvider = (props) => {
     newTodos.splice(itemIndex, 1, newItem);
     setToDos(newTodos);
     // Improve Code here, I'm deleting all data and running a loop to post each ToDo again (with updated status)
-    fetch(
-      "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
-      {
-        method: "DELETE",
-      }
-    ).then(() => {
-      for (const item of newTodos) {
-        fetch(
-          "https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/todos.json",
+    await fetch(fetchURL,{method: "DELETE"});
+    for (const toDo of newTodos) {
+        fetch(fetchURL,
           {
             method: "POST",
-            body: JSON.stringify(item),
+            body: JSON.stringify(toDo),
           }
         );
       }
-    });
-  };
+    };
 
   const contextValue = {
     toDos,
