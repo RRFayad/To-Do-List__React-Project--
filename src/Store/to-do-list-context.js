@@ -15,14 +15,16 @@ const ToDoListContextProvider = (props) => {
   const authCtx = useContext(AuthContext);
   const userId = authCtx.userId;
   const userIsLoggedIn = authCtx.isLoggedIn;
-  const fetchURL = userId? `https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/${userId}/todos.json` : null
+  const fetchURL = userId
+    ? `https://personal-to-do-list-4ef11-default-rtdb.firebaseio.com/${userId}-todos.json`
+    : null;
 
   const fetchToDos = useCallback(async () => {
     if (!userIsLoggedIn) return;
     try {
+      setToDos([]);
       const response = await fetch(fetchURL);
       if (!response.ok) {
-        setToDos([]);
         throw new Error("Error fetching data");
       }
 
@@ -41,8 +43,7 @@ const ToDoListContextProvider = (props) => {
           : error.message
       );
     }
-  },[userIsLoggedIn,fetchURL]
-  );
+  }, [userIsLoggedIn, fetchURL]);
 
   useEffect(() => {
     fetchToDos();
@@ -54,12 +55,10 @@ const ToDoListContextProvider = (props) => {
       done: false,
       id: new Date().toISOString(),
     };
-    fetch(fetchURL,
-      {
-        method: "POST",
-        body: JSON.stringify(toDo),
-      }
-    );
+    fetch(fetchURL, {
+      method: "POST",
+      body: JSON.stringify(toDo),
+    });
     setToDos((previousToDos) => [...previousToDos, toDo]);
   };
 
@@ -69,17 +68,15 @@ const ToDoListContextProvider = (props) => {
     newTodos.splice(itemIndex, 1);
     setToDos(newTodos);
     // Improve Code here, I'm deleting all data and running a loop to post each ToDo again
-    await fetch(fetchURL,{method: "DELETE"});
+    await fetch(fetchURL, { method: "DELETE" });
     if (newTodos.length === 0) return;
     for (const todo of newTodos) {
-      await fetch( fetchURL,
-          {
-            method: "POST",
-            body: JSON.stringify(todo),
-          }
-        );
-      }
-    };
+      await fetch(fetchURL, {
+        method: "POST",
+        body: JSON.stringify(todo),
+      });
+    }
+  };
 
   const toggleStatus = async (id) => {
     const itemIndex = toDos.findIndex((item) => item.id === id);
@@ -89,16 +86,14 @@ const ToDoListContextProvider = (props) => {
     newTodos.splice(itemIndex, 1, newItem);
     setToDos(newTodos);
     // Improve Code here, I'm deleting all data and running a loop to post each ToDo again (with updated status)
-    await fetch(fetchURL,{method: "DELETE"});
+    await fetch(fetchURL, { method: "DELETE" });
     for (const toDo of newTodos) {
-        fetch(fetchURL,
-          {
-            method: "POST",
-            body: JSON.stringify(toDo),
-          }
-        );
-      }
-    };
+      fetch(fetchURL, {
+        method: "POST",
+        body: JSON.stringify(toDo),
+      });
+    }
+  };
 
   const contextValue = {
     toDos,
