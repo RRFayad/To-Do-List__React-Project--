@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
-import AuthContext from "../Store/auth-context";
+import AuthContext from '../Store/auth-context';
 
-import classes from "./NavBar.module.css";
+import classes from './NavBar.module.css';
 
 function NavBar() {
   const authCtx = useContext(AuthContext);
@@ -12,7 +12,7 @@ function NavBar() {
   return (
     <header className={classes.header}>
       <Link to="/">
-        <button className={`${classes["nav-button--title"]}`}>
+        <button type="button" className={`${classes['nav-button--title']}`}>
           To Do List App
         </button>
       </Link>
@@ -20,11 +20,14 @@ function NavBar() {
         {userIsLoggedIn && (
           <>
             <Link to="/profile">
-              <button className={`${classes["nav-button"]}`}>My Profile</button>
+              <button type="button" className={`${classes['nav-button']}`}>
+                My Profile
+              </button>
             </Link>
             <Link to="/">
               <button
-                className={`${classes["nav-button"]}`}
+                type="button"
+                className={`${classes['nav-button']}`}
                 onClick={authCtx.logout}
               >
                 Logout
@@ -34,7 +37,9 @@ function NavBar() {
         )}
         {!userIsLoggedIn && (
           <Link to="/login">
-            <button className={`${classes["nav-button"]}`}>Login</button>
+            <button type="button" className={`${classes['nav-button']}`}>
+              Login
+            </button>
           </Link>
         )}
       </nav>
