@@ -19,4 +19,8 @@
 
 
 
+preetier & ES Lint
 - https://www.youtube.com/watch?v=XSq4lGZvw7U
+
+Using DOTENV to hide Api Key in React JS | News App in React JS
+https://www.youtube.com/watch?v=3RgpuNR9JI8
