@@ -6,7 +6,7 @@
   width: 90vw;
   max-width: 400px;
   background-color: #ebb002;
-  margin: 48px auto;
+  margin: 6rem auto;
   text-align: center;
   padding: 8px 8px 2px 8px;
   border-radius: 8px;
@@ -95,10 +95,4 @@
   color: rgba(110, 110, 110, 0.37);
   border-color: #ccc;
   cursor: not-allowed;
-}
-
-@media (max-width: 768px) {
-  .login-form__title {
-    font-size: 1rem;
-  }
 }

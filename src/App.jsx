@@ -1,21 +1,43 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
+import ReactDOM from 'react-dom';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import NavBar from './Components/NavBar';
 import AuthContext from './Store/auth-context';
+import ModalMenu from './Components/ModalMenu';
+import ModalMenuBackdrop from './Components/ModalMenuBackdrop';
 
 import HomePage from './Pages/HomePage';
 import LoginPage from './Pages/LoginPage';
 import ProfilePage from './Pages/ProfilePage';
 
-import './App.css';
+import classes from './App.module.css';
 
 function App() {
   const userIsLoggedIn = useContext(AuthContext).isLoggedIn;
+  const [menuIsShown, setMenuIsShown] = useState(false);
+
+  const toggleMenuHandler = () => {
+    setMenuIsShown((prevState) => !prevState);
+  };
 
   return (
-    <div className="App">
-      <NavBar />
+    <div className={classes.App}>
+      <header>
+        <NavBar onToggleMenu={toggleMenuHandler} />
+        {menuIsShown && (
+          <>
+            {ReactDOM.createPortal(
+              <ModalMenuBackdrop onToggleMenu={toggleMenuHandler} />,
+              document.querySelector('#backdrop-root')
+            )}
+            {ReactDOM.createPortal(
+              <ModalMenu onToggleMenu={toggleMenuHandler} />,
+              document.querySelector('#overlay-root')
+            )}
+          </>
+        )}
+      </header>
       <main>
         <Routes>
           <Route

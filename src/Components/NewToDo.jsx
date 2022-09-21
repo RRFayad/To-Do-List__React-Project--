@@ -23,7 +23,6 @@ function NewToDo() {
       <div className={`${classes['to-do-form__title']}`}>
         <h1>To Do List</h1>
         <p>
-          {' '}
           <em>List only your main goals for the day!</em>
         </p>
       </div>

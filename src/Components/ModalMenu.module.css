@@ -1,0 +1,51 @@
+.modal-menu {
+  height: 100vh;
+  width: 70vw;
+  max-width: 360px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-menu > header {
+  height: 10%;
+  width: 100%;
+  padding: 10% 5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.modal-menu > header > button {
+  background-color: rgb(241, 241, 241);
+  border: none;
+  width: 2rem;
+  height: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.modal-menu-main {
+  height: 90%;
+  width: 100%;
+  padding: 10% 5%;
+  background-color: rgba(241, 241, 241, 0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-menu-main__button {
+  width: 100%;
+  background-color: transparent;
+  border: none;
+  margin: 8px 0;
+  font-weight: bold;
+  font-size: 1rem;
+  text-align: left;
+}

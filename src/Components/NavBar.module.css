@@ -22,6 +22,24 @@
   padding: 0 8%;
 }
 
+.header nav {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+.nav-button--menu {
+  background-color: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: none;
+  margin: 0;
+  height: 100%;
+}
+
 .nav-button--title {
   background-color: transparent;
   border: none;
@@ -51,15 +69,21 @@
   color: #f6eb0a;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 760px) {
   .header {
-    height: 3rem;
+    justify-content: center;
   }
   .nav-button--title {
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 
   .nav-button {
-    font-size: 1rem;
+    display: none;
+  }
+
+  .nav-button--menu {
+    display: block;
+    position: absolute;
+    margin-left: -80%;
   }
 }

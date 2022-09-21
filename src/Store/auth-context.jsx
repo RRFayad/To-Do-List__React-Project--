@@ -19,8 +19,6 @@ export function AuthContextProvider({ children }) {
   const loginURL = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${process.env.REACT_APP_API_KEY}`;
   const signUpURL = `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${process.env.REACT_APP_API_KEY}`;
 
-  console.log(process.env);
-
   const loginHandler = async (userHasAccount, email, password) => {
     const URL = userHasAccount ? loginURL : signUpURL;
     const response = await fetch(URL, {
