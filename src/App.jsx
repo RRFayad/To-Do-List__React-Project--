@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
@@ -6,6 +6,7 @@ import NavBar from './Components/NavBar';
 import AuthContext from './Store/auth-context';
 import ModalMenu from './Components/ModalMenu';
 import ModalMenuBackdrop from './Components/ModalMenuBackdrop';
+import LoadingSpinner from './Components/LoadingSpinner';
 
 import classes from './App.module.css';
 
@@ -39,27 +40,35 @@ function App() {
         )}
       </header>
       <main>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              userIsLoggedIn ? <HomePage /> : <Navigate replace to="/login" />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              userIsLoggedIn ? <Navigate replace to="/" /> : <LoginPage />
-            }
-          />
-          <Route
-            path="/profile"
-            element={
-              userIsLoggedIn ? <ProfilePage /> : <Navigate replace to="/" />
-            }
-          />
-          <Route path="/*" element={<Navigate replace to="/" />} />
-        </Routes>
+        <Suspense
+          fallback={
+            <div className="fallback">
+              <LoadingSpinner />
+            </div>
+          }
+        >
+          <Routes>
+            <Route
+              path="/"
+              element={
+                userIsLoggedIn ? <HomePage /> : <Navigate replace to="/login" />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                userIsLoggedIn ? <Navigate replace to="/" /> : <LoginPage />
+              }
+            />
+            <Route
+              path="/profile"
+              element={
+                userIsLoggedIn ? <ProfilePage /> : <Navigate replace to="/" />
+              }
+            />
+            <Route path="/*" element={<Navigate replace to="/" />} />
+          </Routes>
+        </Suspense>
       </main>
     </div>
   );

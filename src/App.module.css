@@ -13,3 +13,11 @@ body {
 .App > main {
   margin-top: 4.5rem;
 }
+
+.fallback {
+  margin: 3rem auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
