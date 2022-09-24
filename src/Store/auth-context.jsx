@@ -62,7 +62,8 @@ export function AuthContextProvider({ children }) {
   };
 
   const changePasswordHandler = async (password) => {
-    let userFeedback;
+    let feedbackMessage;
+    let succeed;
     const response = await fetch(url.changePwd, {
       method: 'POST',
       body: JSON.stringify({
@@ -73,19 +74,20 @@ export function AuthContextProvider({ children }) {
       headers: { 'Content-Type': 'application/json' },
     });
     if (response.ok) {
+      succeed = true;
       const data = await response.json();
       setIdToken(data.idToken);
       localStorage.setItem('idToken', JSON.stringify(data.idToken));
-      userFeedback = 'Password Updated Successfully!';
+      feedbackMessage = 'Password Updated Successfully!';
     }
     if (!response.ok) {
+      succeed = false;
       const errorData = await response.json();
-      userFeedback = errorData.error.message
+      feedbackMessage = errorData.error.message
         ? errorData.error.message
         : 'Could not update the password';
     }
-    return userFeedback;
-    // update token verification
+    return { feedbackMessage, succeed };
   };
 
   const contextValue = useMemo(

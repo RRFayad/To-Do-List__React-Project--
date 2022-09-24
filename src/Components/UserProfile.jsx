@@ -18,8 +18,9 @@ function UserProfile() {
     if (password.length >= 6) {
       setPasswordIsTouched(false);
       const response = await authCtx.changePassword(password);
-      alert(response);
-      navigate('/');
+      alert(response.feedbackMessage);
+      if (response.succeed) navigate('/');
+      event.target.reset();
     }
   };
   return (
