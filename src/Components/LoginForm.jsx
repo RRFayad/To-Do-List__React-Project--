@@ -53,7 +53,10 @@ function LoginForm() {
       <h1 className={`${classes['login-form__title']}`}>
         {userHasAccount ? 'Login' : 'Sign Up'}
       </h1>
-      <form className={`${classes['login-form__form']}`}>
+      <form
+        onSubmit={submitHandler}
+        className={`${classes['login-form__form']}`}
+      >
         <label htmlFor="e-mail">
           E-mail:
           <input
@@ -83,9 +86,9 @@ function LoginForm() {
           <p>Your password must have at least 6 digits</p>
         )}
         <button
-          type="button"
+          type="submit"
           className={`${classes['login-form__login-button']}`}
-          onClick={submitHandler}
+          onSubmit={submitHandler}
           disabled={!emailIsValid || !passwordIsValid}
         >
           {userHasAccount ? 'Login' : 'Create Account'}

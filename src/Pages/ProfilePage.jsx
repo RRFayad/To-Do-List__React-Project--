@@ -1,7 +1,9 @@
 import React from 'react';
 
+import UserProfile from '../Components/UserProfile';
+
 function ProfilePage() {
-  return <p>Create something for profile page</p>;
+  return <UserProfile />;
 }
 
 export default ProfilePage;
