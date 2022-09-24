@@ -7,11 +7,11 @@ import AuthContext from './Store/auth-context';
 import ModalMenu from './Components/ModalMenu';
 import ModalMenuBackdrop from './Components/ModalMenuBackdrop';
 
-import HomePage from './Pages/HomePage';
-import LoginPage from './Pages/LoginPage';
-import ProfilePage from './Pages/ProfilePage';
-
 import classes from './App.module.css';
+
+const HomePage = React.lazy(() => import('./Pages/HomePage'));
+const LoginPage = React.lazy(() => import('./Pages/LoginPage'));
+const ProfilePage = React.lazy(() => import('./Pages/ProfilePage'));
 
 function App() {
   const userIsLoggedIn = useContext(AuthContext).isLoggedIn;
