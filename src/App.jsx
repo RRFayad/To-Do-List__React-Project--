@@ -42,7 +42,7 @@ function App() {
       <main>
         <Suspense
           fallback={
-            <div className="fallback">
+            <div className={classes.fallback}>
               <LoadingSpinner />
             </div>
           }
