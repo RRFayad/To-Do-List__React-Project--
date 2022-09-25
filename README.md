@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# To Do List - React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## How to use it
 
-## Available Scripts
+1. Visit [Fayad's To Dos](https://personal-to-do-list-4ef11.web.app/);
+2. Sign Up (or Login) - You can switch the options by clicking on "Create new account" or "I have an account";
+   - The validation is quite simple, the password must only have at least 06 characters;
+3. After you are logged in, you just add your to do in the input field, and click on Add To Do. This will create a list for your tasks;
+4. You can click on the task to set is as Done, and click on the trash can to delete it;
+5. In the menu (on top for big devices, and a sandwich menu for mobile devices) you can navigate through:
+   - To Do List (the app you are already seeing after you logged in);
+   - Profile Page;
+   - Logout;
+6. In the Profile Page you can change your password;
+7. After you Logout, you can Login in other devices and keep tracking the same tasks.
 
-In the project directory, you can run:
+## How it was made
 
-### `npm start`
+- This app was created using React and React Router, and the data is stored in Firebase. The next topics will cover and detail the main parts of the App Structure.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Login Form
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Using React Hooks (useState and useRef), event listeners (onClick, onFocus, onBlur) and Conditional Rendering a logic was created to do basic validation and return the user some feedback;
+- It also works with useContext to intereact with the authentication logic;
 
-### `npm test`
+### To Do List Logic and Storage
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- The To Do list Logic was created via Context API (check Store folder), in order to organize the code and make everything more readable;
+- The main functionalities are:
+  - Fetch Data (from firebase);
+  - Add To Do;
+  - Remove To Do;
+  - Toggle Status (done and undone);
 
-### `npm run build`
+### Authentication Logic
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- The Authentication Logic was created via Context API (check Store folder) and consumes the Firebase Auth Rest Api, allowing the user to:
+  - Create a New Account,
+  - Login,
+  - Logout,
+  - Change the Password.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Navigation Logic
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The navigation was done via React DOM package, with the logic created in the App.jsx file.
 
-### `npm run eject`
+### Styling
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- The project was styled using CSS Modules;
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- Responsiveness:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+  - For tablets and desktops The Navigation Menu works as a navigation bar o the top of the screen, with the links and logic.
+  - For small devices (smartphones) the Navigation Menu work as a Sandwich Menu, which opens a Modal and backdrop (The Modal and Backdrop are rendered as portals).
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Next Steps to Improve the Logic
 
-## Learn More
+1. Improve the Backend
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+   - The focus of this project is showing my personal skills working with React. As the backend logic was not the focus, it has to be improved in order to make this application really useful.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+2. Implement Authentication Features
 
-### Code Splitting
+   - As it was not the focus, there are also common authentication features that were not implemented, such as Recover password, Change E-mail and update idToken.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Conclusion and Results of the Project
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- As the main goal of this project was to test my skills on Developing React Applications, it succeeded, as it's an application that contains the main React Hooks and React Features, such as:
+  - useState, useContext, useRef, useEffect, useCallback, useMemo;
+  - Portals;
+  - React.lazy();
+  - Suspense;
+  - Http Requests;
+  - Conditional Rendering;
+  - UI / UX:
+    - Loading Spinner;
+    - Form Validation and Styling;
+  - Routing;
+  - JWT Authentication.
